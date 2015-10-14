@@ -59,6 +59,7 @@ class ViewController: UIViewController
     @IBAction func clear()
     {
         display.text = "0"
+        history.text = "0"
         userIsInTheMiddleOfTypingANumber = false
         operandStack = []
         print("operandStack = \(operandStack)")
@@ -81,19 +82,11 @@ class ViewController: UIViewController
     }
     
     var operandStack = Array<Double>()
-    var initialInput = true
     
     @IBAction func enter()
     {
         userIsInTheMiddleOfTypingANumber = false
         operandStack.append(displayValue)
-        
-        if initialInput {
-            history.text = display.text!
-            initialInput = false
-        } else {
-            history.text = history.text! + " " + display.text!
-        }
         
         print("operandStack = \(operandStack)")
     }
