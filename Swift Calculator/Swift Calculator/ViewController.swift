@@ -11,21 +11,101 @@ import UIKit
 class ViewController: UIViewController
 {
     @IBOutlet weak var display: UILabel!
+    @IBOutlet weak var history: UILabel!
     
-    var userIsInTheMiddleOfTypingANumber: Bool = false
+    var userIsInTheMiddleOfTypingANumber = false
     
     @IBAction func appendDigit(sender: UIButton)
     {
         let digit = sender.currentTitle!
         
         if userIsInTheMiddleOfTypingANumber {
-            display.text = display.text! + digit
+            if display.text!.rangeOfString(".") == nil {
+                display.text = display.text! + digit
+            } else if digit != "." {
+                display.text = display.text! + digit
+            }
         } else {
-            display.text = digit
+            if digit == "." {
+                display.text = "0" + digit
+            } else {
+                display.text = digit
+            }
             userIsInTheMiddleOfTypingANumber = true
         }
+//        print("digit = \(digit)")
+    }
+    
+    @IBAction func operate(sender: UIButton)
+    {
+        let operation = sender.currentTitle!
         
-        print("digit = \(digit)")
+        if userIsInTheMiddleOfTypingANumber {
+            enter()
+        }
+        
+        switch operation {
+        case "×": performOperation { $1 * $0 }
+        case "÷": performOperation { $1 / $0 }
+        case "+": performOperation { $1 + $0 }
+        case "−": performOperation { $1 - $0 }
+        case "sin": performSingleDigitOperation { sin($0 * M_PI / 180) }
+        case "cos": performSingleDigitOperation { cos($0 * M_PI / 180) }
+        case "√": performSingleDigitOperation { sqrt($0) }
+        default: break
+        }
+    }
+    
+    @IBAction func clear()
+    {
+        display.text = "0"
+        userIsInTheMiddleOfTypingANumber = false
+        operandStack = []
+        print("operandStack = \(operandStack)")
+    }
+    
+    func performOperation(operation: (Double, Double) -> Double)
+    {
+        if operandStack.count >= 2 {
+            displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
+            enter()
+        }
+    }
+    
+    func performSingleDigitOperation(operation: Double -> Double)
+    {
+        if operandStack.count >= 1 {
+            displayValue = operation(operandStack.removeLast())
+            enter()
+        }
+    }
+    
+    var operandStack = Array<Double>()
+    var initialInput = true
+    
+    @IBAction func enter()
+    {
+        userIsInTheMiddleOfTypingANumber = false
+        operandStack.append(displayValue)
+        
+        if initialInput {
+            history.text = display.text!
+            initialInput = false
+        } else {
+            history.text = history.text! + " " + display.text!
+        }
+        
+        print("operandStack = \(operandStack)")
+    }
+    
+    var displayValue: Double {
+        get {
+            return NSNumberFormatter().numberFromString(display.text!)!.doubleValue
+        }
+        set {
+            display.text = "\(newValue)"
+            userIsInTheMiddleOfTypingANumber = false
+        }
     }
 }
 
