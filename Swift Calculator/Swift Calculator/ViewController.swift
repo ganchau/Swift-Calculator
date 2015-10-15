@@ -33,6 +33,7 @@ class ViewController: UIViewController
             }
             userIsInTheMiddleOfTypingANumber = true
         }
+        
 //        print("digit = \(digit)")
     }
     
@@ -45,10 +46,10 @@ class ViewController: UIViewController
         }
         
         switch operation {
-        case "×": performOperation { $1 * $0 }
-        case "÷": performOperation { $1 / $0 }
-        case "+": performOperation { $1 + $0 }
-        case "−": performOperation { $1 - $0 }
+        case "×": performDoubleDigitOperation { $1 * $0 }
+        case "÷": performDoubleDigitOperation { $1 / $0 }
+        case "+": performDoubleDigitOperation { $1 + $0 }
+        case "−": performDoubleDigitOperation { $1 - $0 }
         case "sin": performSingleDigitOperation { sin($0 * M_PI / 180) }
         case "cos": performSingleDigitOperation { cos($0 * M_PI / 180) }
         case "√": performSingleDigitOperation { sqrt($0) }
@@ -65,7 +66,7 @@ class ViewController: UIViewController
         print("operandStack = \(operandStack)")
     }
     
-    func performOperation(operation: (Double, Double) -> Double)
+    func performDoubleDigitOperation(operation: (Double, Double) -> Double)
     {
         if operandStack.count >= 2 {
             displayValue = operation(operandStack.removeLast(), operandStack.removeLast())
