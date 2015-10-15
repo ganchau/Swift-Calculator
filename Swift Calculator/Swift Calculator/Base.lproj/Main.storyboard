@@ -286,7 +286,6 @@ Unicode: U+03C0, UTF-8: CF 80</string>
                                 </state>
                                 <connections>
                                     <action selector="clear" destination="BYZ-38-t0r" eventType="touchUpInside" id="q6i-PG-qCg"/>
-                                    <action selector="operate:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0ls-RW-f8G"/>
                                 </connections>
                             </button>
                         </subviews>
