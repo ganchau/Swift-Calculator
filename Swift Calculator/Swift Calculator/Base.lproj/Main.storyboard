@@ -254,10 +254,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal">
-                                    <string key="title">π
-GREEK SMALL LETTER PI
-Unicode: U+03C0, UTF-8: CF 80</string>
+                                <state key="normal" title="π">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -284,9 +281,6 @@ Unicode: U+03C0, UTF-8: CF 80</string>
                                 <state key="normal" title="C">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="clear" destination="BYZ-38-t0r" eventType="touchUpInside" id="q6i-PG-qCg"/>
-                                </connections>
                             </button>
                         </subviews>
                         <animations/>
