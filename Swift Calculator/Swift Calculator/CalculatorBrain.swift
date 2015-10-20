@@ -10,7 +10,7 @@ import Foundation
 
 class CalculatorBrain
 {
-    private enum Op: CustomStringConvertible
+    private enum Op: CustomStringConvertible // protocol for printing itself with 'description'
     {
         case Operand(Double)
         case UnaryOperation(String, Double -> Double)
@@ -50,13 +50,13 @@ class CalculatorBrain
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op])
     {
         if !ops.isEmpty {
-            var remainingOps = ops
+            var remainingOps = ops  // copy ops to remainingOps because ops is immutable
             let op = remainingOps.removeLast()
             
             switch op {
             case .Operand(let operand):
                 return (operand, remainingOps)
-            case .UnaryOperation(_, let operation):
+            case .UnaryOperation(_, let operation):  // _ means I don't care about this variable
                 let operandEvaluation = evaluate(remainingOps)
                 if let operand = operandEvaluation.result {
                     return (operation(operand), operandEvaluation.remainingOps)
