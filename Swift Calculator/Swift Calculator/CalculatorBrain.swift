@@ -8,6 +8,8 @@
 
 import Foundation
 
+// This is the model in MVC, so no importing of UIKit
+
 class CalculatorBrain
 {
     private enum Op: CustomStringConvertible // protocol for printing itself with 'description'
@@ -31,7 +33,7 @@ class CalculatorBrain
     }
     
     private var opStack = [Op]() // array declaration shorthand
-    private var knownOps = [String : Op]() // dictionary declaration shorthand
+    private var knownOps = [String: Op]() // dictionary declaration shorthand
     
     init() {
         func learnOp(op: Op) {
