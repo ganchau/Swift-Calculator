@@ -14,8 +14,15 @@ class ViewController: UIViewController
     @IBOutlet weak var history: UILabel!
     
     var userIsInTheMiddleOfTypingANumber = false
-    
     var brain = CalculatorBrain()
+    
+    @IBAction func clear(sender: UIButton)
+    {
+        brain = CalculatorBrain()
+        userIsInTheMiddleOfTypingANumber = false
+        history.text = "0"
+        display.text = "0"
+    }
     
     @IBAction func appendDigit(sender: UIButton)
     {
@@ -30,6 +37,8 @@ class ViewController: UIViewController
         } else {
             if digit == "." {
                 display.text = "0" + digit
+            } else if digit == "π" {
+                display.text = "\(M_PI)"   // ----- currently working on PI --------
             } else {
                 display.text = digit
             }
