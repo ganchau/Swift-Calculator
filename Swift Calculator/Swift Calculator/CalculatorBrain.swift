@@ -49,6 +49,30 @@ class CalculatorBrain
         learnOp(Op.UnaryOperation("cos") { cos($0 * M_PI / 180) })
     }
     
+    typealias PropertyList = AnyObject
+    var program: PropertyList { // guaranteed to be a PropertyList
+        get {
+//            var returnValue = [String]()  // same as Array<String>()
+//            for op in opStack {
+//                returnValue.append(op.description)
+//            }
+//            return returnValue
+            return opStack.map { $0.description }  // does the same thing as above code
+        }
+        set {
+            if let opSymbols = newValue as? Array<String> {
+                var newOpstack = [Op]()
+                for opSymbol in opSymbols {
+                    if let op = knownOps[opSymbol] {
+                        newOpstack.append(op)
+                    } else if let operand = NSNumberFormatter().numberFromString(opSymbol)?.doubleValue {
+                        newOpstack.append(.Operand(operand))
+                    }
+                }
+            }
+        }
+    }
+    
     private func evaluate(ops: [Op]) -> (result: Double?, remainingOps: [Op])
     {
         if !ops.isEmpty {
